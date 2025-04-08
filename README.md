@@ -1,4 +1,4 @@
-# Map interaction Link's Awakening Mark2
+# Map interactive : Link's Awakening Mark2
 Une amélioration de la map interactive Link's Awakening (suite à la SAE 4.01)
 
 ## Membres du projet
