@@ -1,0 +1,24 @@
+#btn-popup-marker {
+    display: flex;
+    justify-content: space-around;
+}
+#btn-popup-marker button { height: 48px; }
+
+#info-popup-marker {
+    text-align: left;
+    font-size: medium;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0;
+} #info-popup-marker a:hover { text-decoration: underline !important; }
+
+.popupMarker {
+    text-align: center;
+    max-width: 382px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.popupMarker-button-checked { background-color: darkseagreen; }

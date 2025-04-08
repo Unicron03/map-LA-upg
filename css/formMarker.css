@@ -1,0 +1,14 @@
+.form-marker { font-size: large; }
+.form-marker button {
+    border-radius: 6px;
+    border: none;
+    font-size: medium;
+    width: inherit;
+    background-color: #58cd81;
+    color: white;
+    padding: 7px 10px;
+    margin-right: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.form-marker button:hover, .form-filter button:hover { opacity: 0.7; }
