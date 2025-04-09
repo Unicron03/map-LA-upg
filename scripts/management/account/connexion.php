@@ -8,7 +8,7 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     //---------------------Récupération des données de l'adresse email entrée par l'utilisateur--------------------------
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt = $pdo->prepare("SELECT id,password,username FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
