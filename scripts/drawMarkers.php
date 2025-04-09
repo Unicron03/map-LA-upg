@@ -113,8 +113,15 @@ function generateMarkerScript($marker) {
     $iconBase64 = 'data:image/png;base64,' . base64_encode($marker['imgCat']);
 
     echo "
-        var customIcon = L.icon({
-            iconUrl: '$iconBase64',
+       var customIcon = L.divIcon({
+            className: 'custom-marker',
+            html: `
+                <div style='position: relative; width: 32px; height: 32px;'>
+                    <img src='$iconBase64' style='width: 32px; height: 32px;' />
+                    " . ($favorite == 1 ? "<img src='./img/like.png' style='position: absolute; bottom: -6px; left: -6px; width: 16px; height: 16px;' />" : "") . "
+                    " . ($complete == 1 ? "<img src='./img/mark.png' style='position: absolute; bottom: -4px; right: -6px; width: 16px; height: 16px;' />" : "") . "
+                </div>
+            `,
             iconSize: [32, 32],
             iconAnchor: [16, 32],
             popupAnchor: [0, -32],
