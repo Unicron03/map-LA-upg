@@ -27,8 +27,11 @@ if (isset($_POST['change'])) {
         $_SESSION['password_reset_email'] = $emailchange;
         $_SESSION['password_reset_token'] = $token;
 
+        $scriptName = $_SERVER['SCRIPT_NAME'];
+        $folderName = basename(dirname($scriptName)); 
+
         // Lien de réinitialisation pour l'environnement local
-        $resetLink = "http://localhost/map-LA/scripts/management/account/changepassword.php?token=$token";
+        $resetLink = "http://localhost/$folderName/scripts/management/account/changepassword.php?token=$token";
 
         // Créer une instance de PHPMailer
         $mail = new PHPMailer(true);
