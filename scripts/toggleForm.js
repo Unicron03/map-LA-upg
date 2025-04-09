@@ -8,6 +8,13 @@ function toggleForm(formId) {
     const panelControls = document.getElementById('panel-controls');
     const panelIcons = document.getElementById('panel-icons');
 
+    if (!panelControls.style.display) {
+        panelControls.style.display = 'flex';
+    }
+    if (!panelIcons.style.display) {
+        panelIcons.style.display = 'flex';
+    }
+
     loginForm.style.display = 'none';
     registerForm.style.display = 'none';
     changePassForm.style.display = 'none';
