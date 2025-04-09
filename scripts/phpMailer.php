@@ -15,7 +15,7 @@ if (isset($_POST['change'])) {
     $emailchange = $_POST['email'];
 
     // Vérifier si l'email existe dans la base de données
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->execute([$emailchange]);
     $user = $stmt->fetch();
 
