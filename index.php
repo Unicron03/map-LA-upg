@@ -30,6 +30,7 @@ include 'scripts/phpMailer.php';
 include 'scripts/drawMarkers.php';
 include 'scripts/loadCatMarkers.php';
 include 'scripts/markerManagement.php';
+include 'scripts/activeSubCategory.php';
 
 if (!isset($_SESSION['categories'])) {
     $_SESSION['categories'] = $_SESSION['categoriesAll'];
@@ -46,7 +47,6 @@ if (!isset($_SESSION['categories'])) {
         <link rel="stylesheet" href="css/leaflet.css"/>
         <link rel="stylesheet" href="css/index.css?v=2.4"/>
         <link rel="stylesheet" href="css/panel.css?v=2.4"/>
-        <link rel="stylesheet" href="css/formMarker.css?v=2.4"/>
         <link rel="stylesheet" href="css/popupMarker.css?v=2.4"/>
     </head>
     <body>
@@ -108,19 +108,9 @@ if (!isset($_SESSION['categories'])) {
                         </form>
                     <?php endif; ?>
 
-                    <!-- ----------------------------Formulaire Sélection/Déseléction tt catégories---------------------------- -->
-                    <form class="form-filter" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" style="width: -webkit-fill-available; margin: 0;">
-                        <input type="hidden" name="param" value="none">
-                        <button type="submit">
-                            Deselect All Categories
-                        </button>
-                    </form>
-                    <form class="form-filter" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" style="width: -webkit-fill-available; margin: 0;">
-                        <input type="hidden" name="param" value="all">
-                        <button type="submit">
-                            Select All Categories
-                        </button>
-                    </form>
+                    <!-- ----------------------------Boutons Sélection/Déseléction tt catégories---------------------------- -->
+                    <button onclick="activeMarkerById('none')">Deselect All Categories</button>
+                    <button onclick="activeMarkerById('all')">Select All Categories</button>
                 </div>
 
                 <!-- --------------------Section catégories filtres-------------------- -->
@@ -184,6 +174,7 @@ if (!isset($_SESSION['categories'])) {
 
         <script>
             let selectedCategories = [];
+            let markers = [];
 
             var map = L.map('map', {
                 zoomSnap: 1, // Zoom par paliers entiers
@@ -252,11 +243,20 @@ if (!isset($_SESSION['categories'])) {
             }
 
             // Permet l'ajout visuel de marker sur la map
-            function addMarkersToMap(x, y, titre, iconUrl, popupContent) {
-                // y+1 sur la SQL par rapport au local
-                L.marker([-y, x], { icon: iconUrl, title: titre, riseOnHover: true })
-                    .bindPopup(popupContent)
-                    .addTo(map);
+            function addMarkersToMap(x, y, titre, iconUrl, popupContent, id, subId, visible = false) {
+                const marker = L.marker([-y, x], { icon: iconUrl, title: titre, riseOnHover: true }).bindPopup(popupContent);
+                marker.addTo(map);
+
+                // Une fois le marqueur ajouté, tu peux accéder à son élément DOM
+                const markerDiv = marker.getElement();
+                if (markerDiv) {
+                    markerDiv.dataset.subId = subId; // Stocke la catégorie dans un attribut HTML
+                    markerDiv.dataset.id = id;
+                }
+            }
+
+            function enableVisibilityMarkers(category) {
+                
             }
         </script>
 
@@ -342,10 +342,41 @@ if (!isset($_SESSION['categories'])) {
                 }
             }
 
+            renderMarkers($_SESSION["categoriesAll"], $_SESSION['complete'], $_SESSION['favorite']);
             loadCatMarkers();
         ?>
 
         <script src="scripts/toggleForm.js"></script>
+        <script>enableVisibilityMarkers(42);</script>
+
+        <!-- Script pour activer/désactiver globalement les fonctions de console -->
+        <script>
+            // Sauvegarde des fonctions d'origine
+            const originalConsole = {
+                log: console.log,
+                info: console.info,
+                warn: console.warn,
+                error: console.error,
+                debug: console.debug
+            };
+
+            // Fonction pour basculer les logs
+            function toggleConsoleLogs(enable) {
+                consoleEnabled = enable;
+
+                if (enable) {
+                    console.log = originalConsole.log;
+                    console.info = originalConsole.info;
+                    console.warn = originalConsole.warn;
+                    console.error = originalConsole.error;
+                    console.debug = originalConsole.debug;
+                } else {
+                    console.log = console.info = console.warn = console.error = console.debug = function () {};
+                }
+            }
+
+            toggleConsoleLogs(true);
+        </script>
     </body>
 </html>
 

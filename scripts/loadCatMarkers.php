@@ -36,13 +36,15 @@ function loadCatMarkers() {
 
             $catStatus = isset($_SESSION['categories']) ? isCatEnable($nom) : true;
             $opacityStyle = $catStatus ? "opacity: 0.4;" : "1";
+            $displayStyle = $subID ? "none" : "flex";
         
             echo "
                 (() => {
-                    let element = document.createElement('form');
+                    let element = document.createElement('button');
                     element.className = 'panel-icons-element';
-                    element.id = '$nom';
+                    element.id = '$subID';
                     element.style = '$opacityStyle';
+                    element.style.display = '$displayStyle';
                     
                     element.method = 'post';
                     element.action = '" . $_SERVER['PHP_SELF'] . "';
@@ -64,13 +66,32 @@ function loadCatMarkers() {
                     element.appendChild(img);
                     element.appendChild(span);
                     
-                    element.addEventListener('click', () => {
-                        element.submit();
-                    });
+                    element.onclick = () => activeMarkerById($id);
                     
                     panelIcons.appendChild(element);
                 })();
             ";
+
+            if (!$subID) {
+                echo "
+                    (() => {
+                        let element = document.createElement('button');
+                        element.style.height = '96px';
+                        element.style.background = 'none';
+                        element.style.border = 'none';
+                        element.style.display = 'block';
+    
+                        let expandImg = document.createElement('img');
+                        expandImg.src = './img/expandImg.png';
+                        expandImg.style.height = '48px';
+                        expandImg.style.rotate = '0deg';
+                        expandImg.onclick = () => activeSubCategory($id, expandImg);
+    
+                        element.appendChild(expandImg);
+                        panelIcons.appendChild(element);
+                    })();
+                ";
+            }
         }
 
         if (isLoggedIn()) {

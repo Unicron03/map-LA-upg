@@ -90,19 +90,6 @@
 }
 
 /* ------------Menu filtre/catégories------------ */
-.form-filter button {
-    border-radius: 6px;
-    border: none;
-    font-size: medium;
-    width: inherit;
-    background-color: #8585856b;
-    color: white;
-    padding: 7px;
-    margin: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
 .panel {
     position: absolute;
     left: 0;
@@ -150,6 +137,22 @@
     cursor: pointer;
 }
 
+/* Les boutons de filtres additionnel */
+.panel-controls button {
+    border-radius: 6px;
+    border: none;
+    font-size: medium;
+    width: -webkit-fill-available;
+    background-color: #8585856b;
+    color: white;
+    padding: 7px;
+    margin: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: -webkit-fill-available;
+}
+.panel-controls button:hover { opacity: 0.7; }
+
 .panel-flag img:hover, .panel-controls a:hover {
     opacity: 0.7;
 }
@@ -159,11 +162,12 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
-    height: calc(100vh - 336px); /* Ajuste la hauteur dynamique */
-    max-height: 620px;
+    justify-content: center;
+    max-height: calc(100vh - 336px); /* Ajuste la hauteur dynamique */
+    /* max-height: 620px; */
     overflow-y: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    align-content: flex-start;
 }
 
 .panel-icons-element {
@@ -175,6 +179,9 @@
     margin: 10px;
     gap: 3px;
     cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
 }
 .panel-icons-element img { height: 84px; width: auto; }
 .panel-icons-element span {

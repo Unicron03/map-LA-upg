@@ -37,13 +37,8 @@ if (isset($_POST['reset_password'])) {
             unset($_SESSION['password_reset_email']);
             unset($_SESSION['password_reset_token']);
 
-            $scriptPath = $_SERVER['SCRIPT_NAME'];
-            $decodedPath = urldecode($scriptPath);
-            $folders = explode('/', trim($decodedPath, '/'));
-            $rootFolder = $folders[0];
-
             echo '<script>alert("Your password has been successfully updated.");</script>';
-            header("Location: http://localhost/$rootFolder/");
+            header("Location: http://localhost/map-LA/");
             exit; 
         } catch (PDOException $e) {
             echo 'Erreur : ' . $e->getMessage();

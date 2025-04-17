@@ -20,6 +20,19 @@ function isCatAGroup($pdo, $category) {
     return $stmt->fetchAll();
 }
 
+function getTypeMarkerSubIdByCatName($pdo, $category) {
+    $query = "
+        SELECT subId
+        FROM typemarker
+        WHERE nom = :category
+    ";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindValue(':category', $category, PDO::PARAM_STR);
+    $stmt->execute();
+    
+    return $stmt->fetchColumn();
+}
+
 /**
  * Récupère les marqueurs depuis la base de données.
 */
@@ -90,7 +103,7 @@ function renderMarkers($category = null, $complete = false, $favorite = false) {
 
     echo "<script>";
     foreach ($markers as $marker) {
-        generateMarkerScript($marker);
+        generateMarkerScript($marker, getTypeMarkerSubIdByCatName($pdo, $category));
     }
     echo "</script>";
 }
@@ -98,7 +111,7 @@ function renderMarkers($category = null, $complete = false, $favorite = false) {
 /**
  * Génère le script JavaScript pour un marqueur.
 */
-function generateMarkerScript($marker) {
+function generateMarkerScript($marker, $subId) {
     $id = $marker['id'];
     $x = $marker['x'];
     $y = $marker['y'];
@@ -163,7 +176,7 @@ function generateMarkerScript($marker) {
             </div>
         </div>`;
 
-        addMarkersToMap($x, $y, '$titre', customIcon, popupContent);
+        addMarkersToMap($x, $y, '$titre', customIcon, popupContent, '$typeId', '$subId');
     ";
 }
 ?>
