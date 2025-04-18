@@ -2,7 +2,7 @@
 session_start();
 
 $_SESSION["pdoUserName"] = "root";
-$_SESSION["pdoUserPassword"] = "";
+$_SESSION["pdoUserPassword"] = "root";
 
 // Initialisation des variables de session
 if (!isset($_SESSION['categoriesAll'])) {
@@ -242,8 +242,21 @@ if (!isset($_SESSION['categories'])) {
                     .openOn(map);
             }
 
+            // Permet de rectifier la position du popup d'un marker lors de son ouverture
+            function popupMarkerLocalisationCorrection() {
+                const popupPaneDiv = document.querySelector('.leaflet-pane.leaflet-popup-pane').lastElementChild;
+
+                if (popupPaneDiv) {
+                    const imgElement = popupPaneDiv.querySelector('img');
+
+                    if (imgElement && imgElement.classList.contains('popupMarkerImg')) {
+                        popupPaneDiv.style.left = '-211px'
+                    }
+                }
+            }
+
             // Permet l'ajout visuel de marker sur la map
-            function addMarkersToMap(x, y, titre, iconUrl, popupContent, id, subId, visible = false) {
+            function addMarkersToMap(x, y, titre, iconUrl, popupContent, id, subId) {
                 const marker = L.marker([-y, x], { icon: iconUrl, title: titre, riseOnHover: true }).bindPopup(popupContent);
                 marker.addTo(map);
 
@@ -253,10 +266,11 @@ if (!isset($_SESSION['categories'])) {
                     markerDiv.dataset.subId = subId; // Stocke la catégorie dans un attribut HTML
                     markerDiv.dataset.id = id;
                 }
-            }
 
-            function enableVisibilityMarkers(category) {
-                
+                // Recalcul la position du popup du marker lors du clic sur ce dernier pour eviter bug
+                marker.on('click', function () {
+                    popupMarkerLocalisationCorrection();
+                });
             }
         </script>
 
@@ -347,7 +361,7 @@ if (!isset($_SESSION['categories'])) {
         ?>
 
         <script src="scripts/toggleForm.js"></script>
-        <script>enableVisibilityMarkers(42);</script>
+        <script>activeMarkerById("all")</script>
 
         <!-- Script pour activer/désactiver globalement les fonctions de console -->
         <script>

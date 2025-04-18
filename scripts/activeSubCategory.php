@@ -52,7 +52,20 @@ getSubIdsGroupedByParent(); // Appel de la fonction pour générer le JS
         expandImg.style.setProperty('rotate', rotation);
     }
 
-    function activeMarkerById(id) {
+    function getIdBySubId() {
+        const parentBySubId = {};
+        
+        for (const parentId in subIdsByParent) {
+            subIdsByParent[parentId].forEach(subId => {
+                parentBySubId[subId] = Number(parentId);
+            });
+        }
+
+        return parentBySubId;
+    }
+
+    function activeMarkerById(id, categoryClicked) {
+        const panelFilter = document.getElementById('panel-icons');
         const markerPane = document.querySelector('.leaflet-pane.leaflet-marker-pane');
         if (!markerPane) return;
 
@@ -69,10 +82,17 @@ getSubIdsGroupedByParent(); // Appel de la fonction pour générer le JS
 
             // Optionnel : on retire les doublons au cas où
             filters = [...new Set(filters)];
+
+            panelFilter.querySelectorAll('button').forEach((filter) => {
+                filter.style.opacity = "1";
+            });
         } else if (id === "none") {
             // Désactiver toutes les catégories
             filters = [];
-
+            
+            panelFilter.querySelectorAll('button').forEach((filter) => {
+                filter.style.opacity = '0.4';
+            });
         } else {
             // Obtenir tous les subIds associés à cet id
             let idsToFilter = [];
@@ -96,9 +116,32 @@ getSubIdsGroupedByParent(); // Appel de la fonction pour générer le JS
                     }
                 });
             }
+
+            // Active/Désactive les sous-catégories
+            panelFilter.querySelectorAll('button').forEach((filter) => {
+                if (filter.id) {
+                    const opacity = filters.includes(Number(filter.dataset.id)) ? "1" : "0.4";
+                    filter.style.opacity = opacity;
+                }
+            });
+
+            // Active/Désactive la catégorie mère cliquée si l'une de ses filles est active
+            const subIds = subIdsByParent[id];
+            if (subIds) { // S'active si on clic sur une catégorie
+                const hasInvalidFilter = subIds.some(subId => !filters.includes(subId));
+                categoryClicked.style.opacity = hasInvalidFilter ? "0.4" : "1";
+            }
+
+            // Active/Désactive la catégorie mère d'une catégorie fille cliquée si l'une des filles est active
+            const parentId = getIdBySubId()[id];
+            panelFilter.querySelectorAll('button').forEach((filter) => {
+                if (Number(filter.dataset.id) === parentId) {
+                    filter.style.opacity = subIdsByParent[parentId].some(subId => filters.includes(subId)) ? "1" : "0.4";
+                }
+            });
         }
 
-        console.log("Filtres actifs :", filters);
+        // console.log("Filtres actifs :", filters);
 
         // Mise à jour de l'affichage
         markerDivs.forEach((div) => {

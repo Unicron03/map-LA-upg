@@ -142,7 +142,7 @@ function generateMarkerScript($marker, $subId) {
 
         var popupContent = `<div class='popupMarker' " . ($typeId == 16 ? "style='min-width: 280px;'" : "") . ">
             <h1 class='subtitle'>$titre</h1>
-            " . (!empty($popupImage) ? "<img src='$popupImage' style='max-width: 382px;'>" : "") . "
+            " . (!empty($popupImage) ? "<img class='popupMarkerImg' src='$popupImage' style='max-width: 382px;'>" : "") . "
             <div id='info-popup-marker' " . (empty($description) && empty($sourceLink) ? "style='display: none;'" : "") . ">
                 " . (!empty($description) ? "<p>$description</p>" : "") . "
                 " . (!empty($sourceLink) ? "<p>Source: <a href='$sourceLink' target='_blank'>$nomCat Guide</a></p>" : "") . "

@@ -43,6 +43,7 @@ function loadCatMarkers() {
                     let element = document.createElement('button');
                     element.className = 'panel-icons-element';
                     element.id = '$subID';
+                    element.dataset.id = '$id';
                     element.style = '$opacityStyle';
                     element.style.display = '$displayStyle';
                     
@@ -66,7 +67,7 @@ function loadCatMarkers() {
                     element.appendChild(img);
                     element.appendChild(span);
                     
-                    element.onclick = () => activeMarkerById($id);
+                    element.onclick = () => activeMarkerById($id, element);
                     
                     panelIcons.appendChild(element);
                 })();
