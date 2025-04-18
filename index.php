@@ -362,6 +362,7 @@ if (!isset($_SESSION['categories'])) {
 
         <script src="scripts/toggleForm.js"></script>
         <script>activeMarkerById("all")</script>
+        <script>activeMarkerById("all")</script>
 
         <!-- Script pour activer/désactiver globalement les fonctions de console -->
         <script>
