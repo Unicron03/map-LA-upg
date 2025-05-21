@@ -50,6 +50,8 @@ if (!isset($_SESSION['categories'])) {
         <link rel="stylesheet" href="css/popupMarker.css?v=2.4"/>
     </head>
     <body>
+        <!-- ------------------------------------------Permet de lancer autoexportbdd a chaque fois qu'un utilisateur se connecte------------------------------------------ -->
+        <img src="/SAE/MAP-LA-UPG-MAIN/scripts/management/bdd/autoexportbdd.php" style="display: none;">
         <!-- ------------------------------------------Le Panel------------------------------------------ -->
         <div class="panel">       
             <!-- --------------------------------Section bandeau du panel-------------------------------- -->
