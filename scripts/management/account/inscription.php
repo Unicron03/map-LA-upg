@@ -1,5 +1,14 @@
 <?php
 
+function isPasswordStrong($password) {
+    return (
+        strlen($password) >= 8 &&
+        preg_match('/[A-Z]/', $password) &&
+        preg_match('/[0-9]/', $password) &&
+        preg_match('/[\W]/', $password)
+    );
+}
+
 // ----------------------Inscription-----------------------------------------------------------------------------------
 if (isset($_POST['register'])) {
     $pdo = Database::get();
@@ -16,6 +25,11 @@ if (isset($_POST['register'])) {
     $checkEmail = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
     $checkEmail->execute([$email]);
     $emailExists = $checkEmail->fetchColumn();
+
+    if (!isPasswordStrong($_POST['password'])) {
+        echo "<script>alert('Le mot de passe doit avoir au moins 8 caractères, avec une majuscule, un chiffre et un caractère spécial.');window.location.href = 'index.php'; </script>";
+        exit;
+    }
 
     if ($emailExists) {
         // Si l'email existe déjà, afficher un message d'erreur
