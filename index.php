@@ -51,7 +51,7 @@
         <!-- ------------------------------------------Permet de lancer autoexportbdd a chaque fois qu'un utilisateur se connecte------------------------------------------ -->
         <img src="/SAE/MAP-LA-UPG-MAIN/scripts/management/bdd/autoexportbdd.php" style="display: none;">
         <!-- ------------------------------------------Le Panel------------------------------------------ -->
-        <div class="panel">       
+        <div class="panel" onclick="closePopup()">       
             <!-- --------------------------------Section bandeau du panel-------------------------------- -->
             <div class="panel-flag">
                 <div class="panel-flag-bandeau">
@@ -220,6 +220,11 @@
                         .openOn(map);
                 }
             });
+
+            // Ferme tous les popups ouvert
+            function closePopup() {
+                map.closePopup();
+            }
 
             // Ouvre le formulaire de modification d'un marker perso
             function openEditForm(titre, description, x, y, id, buttonElement) {
