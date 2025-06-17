@@ -34,6 +34,22 @@ getSubIdsGroupedByParent(); // Appel de la fonction pour générer le JS
 
 <script>
     let filters = []; // On filtre via les ids des catégories
+    let additionnalFilters = []; // Filtres additionels de like et mark
+    let switchAllCategories = "all"; // Filtres bascule permettant d'activer/désactiver tous les marqueurs
+
+    function eyeBtnToggle(button, enability) {
+        const icon = button.querySelector('i');
+
+        if (enability) {
+            button.classList.remove('active');
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            button.classList.add('active');
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    }
 
     function activeSubCategory(id, expandImg) {
         const panel = document.getElementById('panel-icons');
@@ -64,12 +80,57 @@ getSubIdsGroupedByParent(); // Appel de la fonction pour générer le JS
         return parentBySubId;
     }
 
+    function activeLikeMarkMarkers(param) {
+        const markerPane = document.querySelector('.leaflet-pane.leaflet-marker-pane');
+        if (!markerPane) return;
+
+        // Ajoute ou retire le filtre
+        const index = additionnalFilters.indexOf(param);
+        console.log(additionnalFilters, index);
+        if (index === -1) {
+            additionnalFilters.push(param);
+        } else {
+            additionnalFilters.splice(index, 1);
+        }
+
+        markerPane.querySelectorAll('div').forEach((div) => {
+            const markerImgDiv = div.querySelector('div'); // div contenant l'image
+            if (!markerImgDiv || markerImgDiv.children.length == 1) return;
+            let hasDisplay = true;
+
+            for (let filter of additionnalFilters) {
+                if (markerImgDiv.querySelector(`img[src='./img/${filter}.png']`)) {
+                    div.style.setProperty('display', 'none');
+                    hasDisplay = false;
+                    break;
+                }
+            }
+
+            // console.log(filters.includes(div.dataset.catId), div.dataset.catId, typeof div.dataset.catId);
+            if (hasDisplay) {
+                if (filters.length === 0 || filters.includes(Number(div.dataset.catId))) {
+                    div.style.setProperty('display', 'block');
+                }
+            }
+        });
+
+        // Toggle filtre
+        eyeBtnToggle(document.getElementById(`toggle-${param}-button`), !additionnalFilters.includes(param));
+    }
+
     function activeMarkerById(id, categoryClicked) {
         const panelFilter = document.getElementById('panel-icons');
         const markerPane = document.querySelector('.leaflet-pane.leaflet-marker-pane');
         if (!markerPane) return;
 
         const markerDivs = markerPane.querySelectorAll('div');
+
+        // Switcher l'état de sélection générale 'all' ou 'none'
+        if (id === "switch") id = switchAllCategories = switchAllCategories == "all" ? "none" : "all";
+        
+        // Toggle filtre
+        if (id === "all") eyeBtnToggle(document.getElementById(`toggle-all-button`), true);
+        else if (id === "none") eyeBtnToggle(document.getElementById(`toggle-all-button`), false);
 
         if (id === "all") {
             // Activer toutes les sous-catégories disponibles
@@ -90,7 +151,7 @@ getSubIdsGroupedByParent(); // Appel de la fonction pour générer le JS
             // Désactiver toutes les catégories
             filters = [];
             
-            panelFilter.querySelectorAll('button').forEach((filter) => {
+            panelFilter.querySelectorAll('button.panel-icons-element').forEach((filter) => {
                 filter.style.opacity = '0.4';
             });
         } else {
@@ -120,7 +181,7 @@ getSubIdsGroupedByParent(); // Appel de la fonction pour générer le JS
             // Active/Désactive les sous-catégories
             panelFilter.querySelectorAll('button').forEach((filter) => {
                 if (filter.id) {
-                    const opacity = filters.includes(Number(filter.dataset.id)) ? "1" : "0.4";
+                    const opacity = filters.includes(Number(filter.dataset.catId)) ? "1" : "0.4";
                     filter.style.opacity = opacity;
                 }
             });
@@ -145,11 +206,22 @@ getSubIdsGroupedByParent(); // Appel de la fonction pour générer le JS
 
         // Mise à jour de l'affichage
         markerDivs.forEach((div) => {
-            if (div.dataset.id) {
-                const datasetId = Number(div.dataset.id);
+            if (div.dataset.catId) {
+                const datasetId = Number(div.dataset.catId);
                 const match = filters.includes(datasetId);
                 div.style.setProperty('display', match ? 'block' : 'none');
             }
         });
+
+        // Toggle filtre
+        // if (id === "all") {
+            // additionnalFilters = ["like", "mark"];
+            // eyeBtnToggle(document.getElementById(`toggle-like-button`), true);
+            // eyeBtnToggle(document.getElementById(`toggle-mark-button`), true);
+        // } else if (id === "none") {
+            // additionnalFilters = [];
+            // eyeBtnToggle(document.getElementById(`toggle-like-button`), false);
+            // eyeBtnToggle(document.getElementById(`toggle-mark-button`), false);
+        // }
     }
 </script>

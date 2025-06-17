@@ -1,8 +1,15 @@
 <?php
-require_once 'scripts/drawMarkers.php';
+    require_once 'scripts/drawMarkers.php';
 ?>
 
 <script>
+    /**
+     * Fonction permettant de trouver le un marqueur par son id unique et renvoi son affichage écran
+    */
+    function getMarkerElementByUnicId(unicId) {
+        return document.querySelector(`.leaflet-marker-pane [data-unic-id="${unicId}"]`);
+    }
+
     /**
      * Fonction formatant les données d'un nouveau marker pour validation et envoi
     */
@@ -12,7 +19,6 @@ require_once 'scripts/drawMarkers.php';
         var titre = form.elements['title'].value;
         var description = form.elements['description'].value;
 
-        console.log(x, y, titre, description, 16, 0);
         // Envoi des données au serveur via AJAX
         fetch('scripts/management/bdd/addMarker.php', {
             method: 'POST',
@@ -86,16 +92,31 @@ require_once 'scripts/drawMarkers.php';
      * Fonction formatant les données d'un marker à marquer comme favoris pour validation et envoi 
     */
     function markAsFavorite(event, id) {
-        event.preventDefault(); // Empêche le rechargement de la page
+        event.preventDefault();
 
         fetch('scripts/management/bdd/markAsFavorite.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ id: id }) // Envoi des données en format x-www-form-urlencoded
+            body: new URLSearchParams({ id })
         })
         .then(() => {
-            map.closePopup();
-            location.reload();
+            const marker = getMarkerElementByUnicId(id.toString());
+            if (!marker) return;
+
+            const markerImgDiv = marker.querySelector('div'); // le div contenant l'image
+            if (!markerImgDiv) return;
+
+            const badge = markerImgDiv.querySelector("img[src='./img/like.png']");
+            if (badge) {
+                badge.remove(); // Supprime le badge s'il existe
+            } else {
+                const img = document.createElement("img");
+                img.src = './img/like.png';
+                img.style = 'position: absolute; bottom: -6px; left: -6px; width: 16px; height: 16px;';
+                markerImgDiv.appendChild(img); // Ajoute le badge
+            }
+
+            map.closePopup(); // Ferme le popup
         })
         .catch(error => console.error('Erreur:', error));
     }
@@ -110,11 +131,26 @@ require_once 'scripts/drawMarkers.php';
         fetch('scripts/management/bdd/markAsComplete.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ id: id }) // Envoi des données en format x-www-form-urlencoded
+            body: new URLSearchParams({ id }) // Envoi des données en format x-www-form-urlencoded
         })
         .then(() => {
-            map.closePopup();
-            location.reload();
+            const marker = getMarkerElementByUnicId(id.toString());
+            if (!marker) return;
+
+            const markerImgDiv = marker.querySelector('div'); // le div contenant l'image
+            if (!markerImgDiv) return;
+
+            const badge = markerImgDiv.querySelector("img[src='./img/mark.png']");
+            if (badge) {
+                badge.remove(); // Supprime le badge s'il existe
+            } else {
+                const img = document.createElement("img");
+                img.src = './img/mark.png';
+                img.style = 'position: absolute; bottom: -4px; right: -6px; width: 16px; height: 16px;';
+                markerImgDiv.appendChild(img); // Ajoute le badge
+            }
+
+            map.closePopup(); // Ferme le popup
         })
         .catch(error => console.error('Erreur:', error));
     }

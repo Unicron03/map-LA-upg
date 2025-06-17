@@ -2,7 +2,12 @@
     display: flex;
     justify-content: space-around;
 }
-#btn-popup-marker button { height: 48px; }
+#btn-popup-marker button {
+    height: 48px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#btn-popup-marker button:hover { opacity: 0.6; }
 
 #info-popup-marker {
     text-align: left;
