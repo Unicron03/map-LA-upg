@@ -154,7 +154,7 @@ function generateMarkerScript($marker, $subId) {
                     </button>
                 </a>" : "") . "
                 <form onsubmit='markAsFavorite(event, $id);'>
-                    <button " . ($favorite == 1 ? "class='popupMarker-button-checked'" : "") . (isLoggedIn() ? "" : "disabled") . ">
+                    <button " . (isLoggedIn() ? "" : "disabled") . ">
                         <img class='icon-template' 
                             src='./img/icon-favorite.png' 
                             title='" . (isLoggedIn() ? "Mark as Favorite" : "Log in to use this feature") . "'
@@ -162,8 +162,7 @@ function generateMarkerScript($marker, $subId) {
                     </button>
                 </form>
                 <form onsubmit='markAsComplete(event, $id);'>
-                    <button 
-                        " . ($complete == 1 ? "class='popupMarker-button-checked'" : "") . (isLoggedIn() ? "" : "disabled") . ">
+                    <button " . (isLoggedIn() ? "" : "disabled") . ">
                         <img class='icon-template' 
                             src='./img/icon-mark.png' 
                             title='" . (isLoggedIn() ? "Mark as Complete" : "Log in to use this feature") . "'
@@ -176,7 +175,7 @@ function generateMarkerScript($marker, $subId) {
             </div>
         </div>`;
 
-        addMarkersToMap($x, $y, '$titre', customIcon, popupContent, '$typeId', '$subId');
+        addMarkersToMap($x, $y, '$titre', customIcon, popupContent, '$typeId', '$subId', '$id');
     ";
 }
 ?>

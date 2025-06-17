@@ -1,40 +1,37 @@
 <?php
-session_start();
+    session_start();
 
-$_SESSION["pdoUserName"] = "root";
-$_SESSION["pdoUserPassword"] = "root";
+    $_SESSION["pdoUserName"] = "root";
+    $_SESSION["pdoUserPassword"] = "";
 
-// Initialisation des variables de session
-if (!isset($_SESSION['categoriesAll'])) {
-    $_SESSION['categoriesAll'] = [];
-}
-if (!isset($_SESSION['categoriesMother'])) {
-    $_SESSION['categoriesMother'] = [];
-}
-$_SESSION['complete'] = isset($_SESSION['complete']) ? $_SESSION['complete'] : true;
-$_SESSION['favorite'] = isset($_SESSION['favorite']) ? $_SESSION['favorite'] : true;
-$_SESSION['param'] = isset($_SESSION['param']) ? $_SESSION['param'] : null;
+    // Initialisation des variables de session
+    if (!isset($_SESSION['categoriesAll'])) {
+        $_SESSION['categoriesAll'] = [];
+    }
+    if (!isset($_SESSION['categoriesMother'])) {
+        $_SESSION['categoriesMother'] = [];
+    }
 
-// Vérifie si l'utilisateur est connecté
-function isLoggedIn() {
-    return isset($_SESSION['user_id']);
-}
+    // Vérifie si l'utilisateur est connecté
+    function isLoggedIn() {
+        return isset($_SESSION['user_id']);
+    }
 
-// Import des scripts
-include 'scripts/services/database.php';
-include 'scripts/getTypeMarkers.php';
-include 'scripts/management/account/inscription.php';
-include 'scripts/management/account/connexion.php';
-include 'scripts/management/account/deconnexion.php';
-include 'scripts/phpMailer.php';
-include 'scripts/drawMarkers.php';
-include 'scripts/loadCatMarkers.php';
-include 'scripts/markerManagement.php';
-include 'scripts/activeSubCategory.php';
+    // Import des scripts
+    include 'scripts/services/database.php';
+    include 'scripts/getTypeMarkers.php';
+    include 'scripts/management/account/inscription.php';
+    include 'scripts/management/account/connexion.php';
+    include 'scripts/management/account/deconnexion.php';
+    include 'scripts/phpMailer.php';
+    include 'scripts/drawMarkers.php';
+    include 'scripts/loadCatMarkers.php';
+    include 'scripts/markerManagement.php';
+    include 'scripts/activeSubCategory.php';
 
-if (!isset($_SESSION['categories'])) {
-    $_SESSION['categories'] = $_SESSION['categoriesAll'];
-}
+    if (!isset($_SESSION['categories'])) {
+        $_SESSION['categories'] = $_SESSION['categoriesAll'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +45,7 @@ if (!isset($_SESSION['categories'])) {
         <link rel="stylesheet" href="css/index.css?v=2.4"/>
         <link rel="stylesheet" href="css/panel.css?v=2.4"/>
         <link rel="stylesheet" href="css/popupMarker.css?v=2.4"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     </head>
     <body>
         <!-- ------------------------------------------Le Panel------------------------------------------ -->
@@ -82,35 +80,23 @@ if (!isset($_SESSION['categories'])) {
             <div id="change">
                 <!-- ------------------------------Section filtres------------------------------ -->
                 <div class="panel-controls" id="panel-controls">
-                    <?php if (isLoggedIn()): ?>
-                        <!-- ---------------------------Formulaire affichage/désaffichage complétés--------------------------- -->
-                        <form class="form-filter" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" style="width: -webkit-fill-available; margin: 0;">
-                            <input type="hidden" name="param" value="complete">
-                            <button type="submit">
-                                <?php if ($_SESSION['complete'] == true): ?>
-                                    Show Completed
-                                <?php else: ?>
-                                    Hide Completed
-                                <?php endif; ?>
-                            </button>
-                        </form>
-
-                        <!-- ---------------------------Formulaire affichage/désaffichage favoris--------------------------- -->
-                        <form class="form-filter" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" style="width: -webkit-fill-available; margin: 0;">
-                            <input type="hidden" name="param" value="favorite">
-                            <button type="submit">
-                                <?php if ($_SESSION['favorite'] == true): ?>
-                                    Show Favorites
-                                <?php else: ?>
-                                    Hide Favorites
-                                <?php endif; ?>
-                            </button>
-                        </form>
-                    <?php endif; ?>
-
                     <!-- ----------------------------Boutons Sélection/Déseléction tt catégories---------------------------- -->
-                    <button onclick="activeMarkerById('none')">Deselect All Categories</button>
-                    <button onclick="activeMarkerById('all')">Select All Categories</button>
+                    <button id="toggle-all-button" onclick="activeMarkerById('switch')" class="icon-toggle">
+                        Select/Deselect All Categories
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <!-- <button onclick="activeMarkerById('all')">Select All Categories</button> -->
+
+                    <?php if (isLoggedIn()): ?>
+                        <button id="toggle-like-button" onclick="activeLikeMarkMarkers('like')" class="icon-toggle">
+                            Show/Hide Favorites
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                        <button id="toggle-mark-button" onclick="activeLikeMarkMarkers('mark')" class="icon-toggle">
+                            Show/Hide Completed
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    <?php endif; ?>
                 </div>
 
                 <!-- --------------------Section catégories filtres-------------------- -->
@@ -198,15 +184,25 @@ if (!isset($_SESSION['categories'])) {
             var bounds = L.latLngBounds(southWest, northEast);
 
             // Gestion des clics droits pour l'ajout de marker perso si connecté
-            map.on('contextmenu', function(e) {
+            map.on('contextmenu', function (e) {
                 <?php if (!isLoggedIn()): ?>
                     alert("To create personalised markers you need to log in!");
                     return;
                 <?php endif; ?>
 
+                // Obtenir l'élément sous le curseur
+                const elementUnderCursor = document.elementFromPoint(e.originalEvent.clientX, e.originalEvent.clientY);
+
+                // Fallback : vérifie si le curseur est en mode "pointer"
+                const cursorStyle = window.getComputedStyle(elementUnderCursor).cursor;
+                const isCursorPointer = cursorStyle === 'pointer';
+
+                // Bloquer l'ouverture du popup si clic sur marker
+                if (isCursorPointer) return;
+
                 if (bounds.contains(e.latlng)) {
-                    var coords = e.latlng;
-                    var formContent = `
+                    const coords = e.latlng;
+                    const formContent = `
                         <form class="form-marker" onsubmit="createMarker(event, ${coords.lng}, ${-coords.lat}, this);">
                             <label for="markerTitle">Title :</label><br>
                             <input type="text" id="markerTitle" name="title" required maxlength="20" size="15"><br><br>
@@ -242,34 +238,62 @@ if (!isset($_SESSION['categories'])) {
                     .openOn(map);
             }
 
-            // Permet de rectifier la position du popup d'un marker lors de son ouverture
-            function popupMarkerLocalisationCorrection() {
+            // Permet de rectifier la position du popup d'un marker lors de son ouverture, et d'initialiser les boutons de like et favoris
+            function popupMarkerInit(id) {
                 const popupPaneDiv = document.querySelector('.leaflet-pane.leaflet-popup-pane').lastElementChild;
 
                 if (popupPaneDiv) {
                     const imgElement = popupPaneDiv.querySelector('img');
 
+                    // Rectifier position si popup contient image de description
                     if (imgElement && imgElement.classList.contains('popupMarkerImg')) {
                         popupPaneDiv.style.left = '-211px'
+                    }
+
+                    // Vérifie si le badge "like" est présent sur le marker
+                    const markerDiv = getMarkerElementByUnicId(id.toString());
+                    const hasLikeBadge = markerDiv?.querySelector("img[src='./img/like.png']") !== null;
+
+                    // Sélectionne le bouton "like" dans le popup
+                    const likeButton = popupPaneDiv.querySelector("form[onsubmit*='markAsFavorite'] button");
+                    if (likeButton) {
+                        if (hasLikeBadge) {
+                            likeButton.classList.add('popupMarker-button-checked');
+                        } else {
+                            likeButton.classList.remove('popupMarker-button-checked');
+                        }
+                    }
+
+                    const hasMarkBadge = markerDiv?.querySelector("img[src='./img/mark.png']") !== null;
+
+                    // Sélectionne le bouton "mark" dans le popup
+                    const markButton = popupPaneDiv.querySelector("form[onsubmit*='markAsComplete'] button");
+                    if (markButton) {
+                        if (hasMarkBadge) {
+                            markButton.classList.add('popupMarker-button-checked');
+                        } else {
+                            markButton.classList.remove('popupMarker-button-checked');
+                        }
                     }
                 }
             }
 
             // Permet l'ajout visuel de marker sur la map
-            function addMarkersToMap(x, y, titre, iconUrl, popupContent, id, subId) {
+            function addMarkersToMap(x, y, titre, iconUrl, popupContent, catId, catSubId, id) {
                 const marker = L.marker([-y, x], { icon: iconUrl, title: titre, riseOnHover: true }).bindPopup(popupContent);
                 marker.addTo(map);
 
                 // Une fois le marqueur ajouté, tu peux accéder à son élément DOM
                 const markerDiv = marker.getElement();
                 if (markerDiv) {
-                    markerDiv.dataset.subId = subId; // Stocke la catégorie dans un attribut HTML
-                    markerDiv.dataset.id = id;
+                    markerDiv.dataset.catSubId = catSubId; // Stocke la catégorie dans un attribut HTML
+                    markerDiv.dataset.catId = catId;
+                    markerDiv.dataset.unicId = id;
                 }
 
                 // Recalcul la position du popup du marker lors du clic sur ce dernier pour eviter bug
                 marker.on('click', function () {
-                    popupMarkerLocalisationCorrection();
+                    popupMarkerInit(id);
                 });
             }
         </script>
@@ -300,68 +324,20 @@ if (!isset($_SESSION['categories'])) {
         </script>
 
         <?php
-            // Gestion des commandes des filtres
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $param = $_POST['param']; // Catégorie envoyée depuis le formulaire
-            
-                if ($param == "complete") {
-                    $_SESSION['complete'] = !$_SESSION['complete'];
-                } elseif ($param == "favorite") {
-                    $_SESSION['favorite'] = !$_SESSION['favorite'];
-                } elseif ($param == "none") {
-                    $_SESSION['categories'] = [];
-                    $_SESSION['complete'] = true;
-                    $_SESSION['favorite'] = true;
-                } elseif ($param == "all") {
-                    $_SESSION['categories'] = $_SESSION['categoriesAll'];
-                    $_SESSION['complete'] = true;
-                    $_SESSION['favorite'] = true;
-                } else {
-                    $parCat = isCatAGroup(Database::get(), $param);
-                    if ($param != "Favorites" && $param != "Completed" && !$parCat[0]['subId']) {
-                        $markers = getTypeMarkersBySubID($parCat[0]['id']);
-
-                        foreach ($markers as $marker) {
-                            if (in_array($marker['nom'], $_SESSION['categories'])) {
-                                // Suppression
-                                $_SESSION['categories'] = array_filter($_SESSION['categories'], function($category) use ($marker) {
-                                    return $category !== $marker['nom'];
-                                });                            
-                            } else {
-                                // Ajout
-                                $_SESSION['categories'][] = $marker['nom'];
-                            }
-                        }
-                    } else {
-                        // Vérifie si la catégorie existe déjà dans la session
-                        if (in_array($param, $_SESSION['categories'])) {
-                            // Suppression
-                            $_SESSION['categories'] = array_filter($_SESSION['categories'], function($category) use ($param) {
-                                return $category !== $param;
-                            });
-                        } else {
-                            // Ajout
-                            $_SESSION['categories'][] = $param;
-                        }
-                    }
-                }
-            }
-
             // On affiche toutes les catégories séléctionner
             foreach ($_SESSION['categories'] as $category) {
                 if ($category == "Favorites" || $category == "Completed") {
                     renderMarkers($category, true, true);
                 } else {
-                    renderMarkers(htmlspecialchars($category), $_SESSION['complete'], $_SESSION['favorite']);
+                    renderMarkers(htmlspecialchars($category), true, true);
                 }
             }
 
-            renderMarkers($_SESSION["categoriesAll"], $_SESSION['complete'], $_SESSION['favorite']);
+            renderMarkers($_SESSION["categoriesAll"], true, true);
             loadCatMarkers();
         ?>
 
         <script src="scripts/toggleForm.js"></script>
-        <script>activeMarkerById("all")</script>
         <script>activeMarkerById("all")</script>
 
         <!-- Script pour activer/désactiver globalement les fonctions de console -->
@@ -394,5 +370,3 @@ if (!isset($_SESSION['categories'])) {
         </script>
     </body>
 </html>
-
-<!-- NE PAS OUBLIER DE LANCER SERVEUR PYTHON python -m http.server -->
