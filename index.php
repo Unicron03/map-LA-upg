@@ -4,14 +4,6 @@
     $_SESSION["pdoUserName"] = "root";
     $_SESSION["pdoUserPassword"] = "";
 
-    // Initialisation des variables de session
-    if (!isset($_SESSION['categoriesAll'])) {
-        $_SESSION['categoriesAll'] = [];
-    }
-    if (!isset($_SESSION['categoriesMother'])) {
-        $_SESSION['categoriesMother'] = [];
-    }
-
     // Vérifie si l'utilisateur est connecté
     function isLoggedIn() {
         return isset($_SESSION['user_id']);
@@ -19,7 +11,6 @@
 
     // Import des scripts
     include 'scripts/services/database.php';
-    include 'scripts/getTypeMarkers.php';
     include 'scripts/management/account/inscription.php';
     include 'scripts/management/account/connexion.php';
     include 'scripts/management/account/deconnexion.php';
@@ -28,10 +19,6 @@
     include 'scripts/loadCatMarkers.php';
     include 'scripts/markerManagement.php';
     include 'scripts/activeSubCategory.php';
-
-    if (!isset($_SESSION['categories'])) {
-        $_SESSION['categories'] = $_SESSION['categoriesAll'];
-    }
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +30,7 @@
         <!-- Import css -->
         <link rel="stylesheet" href="css/leaflet.css"/>
         <link rel="stylesheet" href="css/index.css?v=2.4"/>
+        <link rel="stylesheet" href="css/formMarker.css?v=2.4"/>
         <link rel="stylesheet" href="css/panel.css?v=2.4"/>
         <link rel="stylesheet" href="css/popupMarker.css?v=2.4"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -202,15 +190,22 @@
                 // Bloquer l'ouverture du popup si clic sur marker
                 if (isCursorPointer) return;
 
+                // Formulaire de création d'un marqueur personnel
                 if (bounds.contains(e.latlng)) {
                     const coords = e.latlng;
-                    const formContent = `
+                    const formContent = `   
                         <form class="form-marker" onsubmit="createMarker(event, ${coords.lng}, ${-coords.lat}, this);">
-                            <label for="markerTitle">Title :</label><br>
-                            <input type="text" id="markerTitle" name="title" required maxlength="20" size="15"><br><br>
-                            <label for="markerDescription">Description :</label><br>
-                            <textarea id="markerDescription" name="description" rows="3" cols="20"></textarea><br><br>
-                            <button type="submit">Create Marker</button>
+                            <div>
+                                <label for="markerTitle">Title :</label>
+                                <input type="text" id="markerTitle" name="title" required maxlength="20" size="15">
+                            </div>
+
+                            <div>
+                                <label for="markerDescription">Description :</label>
+                                <textarea id="markerDescription" name="description" rows="3" cols="20"></textarea>
+                            </div>
+
+                            <button type="submit" title="Create the marker"><img class='icon-template' src='./img/icon-mark.png'/></button>
                         </form>
                     `;
 
@@ -230,12 +225,22 @@
             function openEditForm(titre, description, x, y, id, buttonElement) {
                 var editFormContent = `
                     <form class="form-marker" onsubmit="updateMarker(event, ${id}, this);">
-                        <label for="editMarkerTitle">Title :</label><br>
-                        <input type="text" id="editMarkerTitle" name="title" value="${titre}" required maxlength="20" size="15"><br><br>
-                        <label for="editMarkerDescription">Description :</label><br>
-                        <textarea id="editMarkerDescription" name="description" rows="3" cols="20">${description}</textarea><br><br>
-                        <button type="submit">Validate</button>
-                        <button type="button" onclick="deleteMarker(event, ${id})" style="background-color: red; color: white;">Delete</button>
+                        <div>
+                            <label for="editMarkerTitle">Title :</label>
+                            <input type="text" id="editMarkerTitle" name="title" value="${titre}" required maxlength="20" size="15">
+                        </div>
+
+                        <div>
+                            <label for="editMarkerDescription">Description :</label>
+                            <textarea id="editMarkerDescription" name="description" rows="3" cols="20">${description}</textarea>
+                        </div>
+
+                        <div style="display: flex;">
+                            <button type="submit" title="Update the marker"><img class='icon-template' src='./img/icon-mark.png'/></button>
+                            <button type="button" onclick="deleteMarker(event, ${id})" style="background: indianred;" title="Delete the marker">
+                                <img class='icon-template' src='./img/icon-trash.png'/>
+                            </button>
+                        </div>
                     </form>
                 `;
 
@@ -331,16 +336,7 @@
         </script>
 
         <?php
-            // On affiche toutes les catégories séléctionner
-            foreach ($_SESSION['categories'] as $category) {
-                if ($category == "Favorites" || $category == "Completed") {
-                    renderMarkers($category, true, true);
-                } else {
-                    renderMarkers(htmlspecialchars($category), true, true);
-                }
-            }
-
-            renderMarkers($_SESSION["categoriesAll"], true, true);
+            renderMarkers();
             loadCatMarkers();
         ?>
 

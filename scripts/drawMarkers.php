@@ -36,7 +36,7 @@ function getTypeMarkerSubIdByCatName($pdo, $category) {
 /**
  * Récupère les marqueurs depuis la base de données.
 */
-function fetchMarkers($pdo, $userId, $category, $complete, $favorite) {
+function fetchMarkers($pdo, $userId, $category) {
     $parCat = isCatAGroup($pdo, $category);
 
     // Début de la requête SQL
@@ -66,14 +66,6 @@ function fetchMarkers($pdo, $userId, $category, $complete, $favorite) {
         }
     }
 
-    // Ajout des filtres pour complete et favorite
-    if ($complete == false) {
-        $query .= " AND COALESCE(u.complete, m.complete) = 0";
-    }
-    if ($favorite == false) {
-        $query .= " AND COALESCE(u.favorite, m.favorite) = 0";
-    }
-
     // Préparation de la requête
     $stmt = $pdo->prepare($query);
 
@@ -96,16 +88,24 @@ function fetchMarkers($pdo, $userId, $category, $complete, $favorite) {
 /**
  * Génère et affiche les marqueurs sous forme de script JavaScript.
 */
-function renderMarkers($category = null, $complete = false, $favorite = false) {
+function renderMarkers() {
     $pdo = Database::get();
     $userId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
-    $markers = fetchMarkers($pdo, $userId, $category, $complete, $favorite);
 
-    echo "<script>";
-    foreach ($markers as $marker) {
-        generateMarkerScript($marker, getTypeMarkerSubIdByCatName($pdo, $category));
+    $stmt = $pdo->query("SELECT nom FROM typemarker WHERE subId IS NOT NULL");
+    $categories = array_map(function ($marqueur) {
+        return $marqueur['nom'];
+    }, $stmt->fetchAll(PDO::FETCH_ASSOC));
+
+    foreach ($categories as $category) {
+        $markers = fetchMarkers($pdo, $userId, $category);
+
+        echo "<script>";
+        foreach ($markers as $marker) {
+            generateMarkerScript($marker, getTypeMarkerSubIdByCatName($pdo, $category));
+        }
+        echo "</script>";
     }
-    echo "</script>";
 }
 
 /**
@@ -178,4 +178,3 @@ function generateMarkerScript($marker, $subId) {
         addMarkersToMap($x, $y, '$titre', customIcon, popupContent, '$typeId', '$subId', '$id');
     ";
 }
-?>

@@ -1,13 +1,6 @@
 <?php
 
 /**
- * Renvoi si une catégorie donné est affiché ou non
-*/
-function isCatEnable($catName) {
-    return in_array($catName, $_SESSION['categories']);
-}
-
-/**
  * Renvoi les catégories sous forme JSON (pour le panel dédié)
 */
 function loadCatMarkers() {
@@ -30,12 +23,6 @@ function loadCatMarkers() {
                 break;
             }
 
-            if (!in_array($nom, $_SESSION['categoriesMother'])) {
-                $_SESSION['categoriesMother'][] = $catMarker['nom'];
-            }
-
-            $catStatus = isset($_SESSION['categories']) ? isCatEnable($nom) : true;
-            $opacityStyle = $catStatus ? "opacity: 0.4;" : "1";
             $displayStyle = $subID && $subID != $id ? "none" : "flex";
         
             echo "
@@ -44,7 +31,6 @@ function loadCatMarkers() {
                     element.className = 'panel-icons-element';
                     element.id = '$subID';
                     element.dataset.catId = '$id';
-                    element.style = '$opacityStyle';
                     element.style.display = '$displayStyle';
                     
                     element.method = 'post';
@@ -83,8 +69,8 @@ function loadCatMarkers() {
                         element.style.display = 'block';
     
                         let expandImg = document.createElement('img');
-                        expandImg.src = './img/expandImg.png';
-                        expandImg.style.height = '48px';
+                        expandImg.src = './img/icon-chevron2.png';
+                        expandImg.style.height = '36px';
                         expandImg.style.rotate = '0deg';
                         expandImg.onclick = () => activeSubCategory($id, expandImg);
     
