@@ -27,7 +27,10 @@ if (isset($_POST['register'])) {
     $emailExists = $checkEmail->fetchColumn();
 
     if (!isPasswordStrong($_POST['password'])) {
-        echo "<script>alert('Le mot de passe doit avoir au moins 8 caractères, avec une majuscule, un chiffre et un caractère spécial.');window.location.href = 'index.php'; </script>";
+        echo "<script>
+            alert('Le mot de passe doit avoir au moins 8 caractères, avec une majuscule, un chiffre et un caractère spécial.');
+            window.location.href = 'index.php';
+        </script>";
         exit;
     }
 

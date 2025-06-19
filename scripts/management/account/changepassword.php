@@ -38,7 +38,7 @@ if (isset($_POST['reset_password'])) {
             unset($_SESSION['password_reset_token']);
 
             echo '<script>alert("Your password has been successfully updated.");</script>';
-            header("Location: http://localhost/map-LA/");
+            header("Location: http://localhost/map-LA-upg/");
             exit; 
         } catch (PDOException $e) {
             echo 'Erreur : ' . $e->getMessage();

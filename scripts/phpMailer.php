@@ -28,7 +28,7 @@ if (isset($_POST['change'])) {
         $_SESSION['password_reset_token'] = $token;
 
         // Lien de réinitialisation pour l'environnement local
-        $resetLink = "http://localhost/map-LA/scripts/management/account/changepassword.php?token=$token";
+        $resetLink = "http://localhost/map-LA-upg/scripts/management/account/changepassword.php?token=$token";
 
         // Créer une instance de PHPMailer
         $mail = new PHPMailer(true);
@@ -39,7 +39,7 @@ if (isset($_POST['change'])) {
             $mail->Host = 'smtp.gmail.com';  // Serveur SMTP Gmail
             $mail->SMTPAuth = true;
             $mail->Username = 'assistancezeldala@gmail.com'; // Votre adresse Gmail
-            $mail->Password = 'buuh uigp zddk neki'; // Mot de passe spécifique à l'application
+            $mail->Password = 'oqdg xsjn ucxn dtqr'; // Mot de passe spécifique à l'application
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Activer le chiffrement TLS
             $mail->Port = 587; // Port SMTP Gmail
 

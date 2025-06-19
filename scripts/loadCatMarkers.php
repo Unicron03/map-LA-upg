@@ -63,10 +63,11 @@ function loadCatMarkers() {
                 echo "
                     (() => {
                         let element = document.createElement('button');
-                        element.style.height = '96px';
+                        element.style.height = '84px';
                         element.style.background = 'none';
                         element.style.border = 'none';
                         element.style.display = 'block';
+                        element.style.marginTop = '10px';
     
                         let expandImg = document.createElement('img');
                         expandImg.src = './img/icon-chevron2.png';
