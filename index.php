@@ -222,7 +222,7 @@
             }
 
             // Ouvre le formulaire de modification d'un marker perso
-            function openEditForm(titre, description, x, y, id, buttonElement) {
+            function openEditForm(titre, description, x, y, id) {
                 var editFormContent = `
                     <form class="form-marker" onsubmit="updateMarker(event, ${id}, this);">
                         <div>

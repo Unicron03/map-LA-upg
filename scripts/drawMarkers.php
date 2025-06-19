@@ -169,7 +169,7 @@ function generateMarkerScript($marker, $subId) {
                         />
                     </button>
                 </form>
-                " . ($typeId == 16 ? "<button onclick=\"openEditForm('$titre', '$description', $x, $y, $id, this)\">
+                " . ($typeId == 16 ? "<button onclick=\"openEditForm('$titre', '$description', $x, $y, $id)\">
                     <img class='icon-template' src='./img/icon-modif.png' title='Modify the Marker'/>
                 </button>" : "") . "
             </div>

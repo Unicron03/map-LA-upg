@@ -53,7 +53,13 @@
         .then(data => {
             if (data.success) {
                 map.closePopup();
-                location.reload();
+
+                const element = getMarkerElementByUnicId(id);
+                if (element) {
+                    element.remove();
+                } else {
+                    console.warn('Élément non trouvé pour suppression.');
+                }
             } else {
                 // alert("Erreur lors de la suppression du marqueur.");
             }
