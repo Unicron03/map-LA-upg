@@ -44,7 +44,10 @@ Ce projet est une carte interactive du jeu **The Legend of Zelda: Link's Awakeni
 |           ├── account/       # Actions compte utilisateur
 │           └── bdd/           # Export, import, gestion BDD
 │       └── services/          # Services tierces
-|   └── tests/                 # Scénarios de test Artillery
+|   └── tests/
+|       ├── screenshots/       # Capture visuels des tests
+|       ├── test-results/      # Historique des résultats des tests
+│       └── testsFiles/        # Fichier de tests principaux
 |   └── index.php              # Point d’entrée de l'application
 ├── docker-compose.yml         # Stack PHP + MySQL
 └── README.md                  # Guide & Documentation
