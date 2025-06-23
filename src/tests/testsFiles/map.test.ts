@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe("Tests des éléments visuels",  async () => {    
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost/map-la-upg/');
+    await page.goto('http://localhost/map-LA-upg-main/');
   });
 
   test('Le panneau fonctionne', async ({ page }) => {
@@ -21,7 +21,7 @@ test.describe("Tests des éléments visuels",  async () => {
 
 test.describe("Tests de connexion avec la BDD",  async () => {    
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost/map-la-upg/');
+    await page.goto('http://localhost/map-LA-upg-main/');
   });
 
   test('La connexion au compte fonctionne correctement', async ({ page }) => {
@@ -69,7 +69,7 @@ test.describe("Tests de connexion avec la BDD",  async () => {
   });
 
   test('Le marqueur personnalisé persiste après rechargement', async ({ page }) => {
-    await page.goto('http://localhost/map-la-upg/');
+    await page.goto('http://localhost/map-LA-upg-main/');
 
     // Connexion
     await page.getByRole('button', { name: 'icon-user' }).click();
@@ -93,11 +93,13 @@ test.describe("Tests de connexion avec la BDD",  async () => {
 
     await page.pause();
   });
+
+
 })
 
 test.describe("Tests des fonctionnalités",  async () => {    
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost/map-la-upg/');
+    await page.goto('http://localhost/map-LA-upg-main/');
 
     await page.getByRole('button', { name: 'icon-user' }).click();
     await page.getByRole('textbox', { name: 'Email' }).fill('account.example@gmail.com');
@@ -131,4 +133,18 @@ test.describe("Tests des fonctionnalités",  async () => {
 
     await page.pause();
   });
+
+  test('Le zoom de la carte fonctionne', async ({ page }) => {
+  await page.goto('http://localhost/map-LA-upg-main/');
+
+  const map = page.locator('.leaflet-container');
+  await map.hover();
+
+  await page.mouse.wheel(0, -500);
+  await page.waitForTimeout(500);
+  await page.mouse.wheel(0, 500); 
+  await page.waitForTimeout(500);
+
+});
+
 })
