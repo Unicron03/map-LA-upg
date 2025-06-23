@@ -2,7 +2,7 @@
 
 Ce projet est une carte interactive du jeu **The Legend of Zelda: Link's Awakening**, conçue pour permettre aux joueurs de suivre leur progression, marquer des éléments et explorer facilement l'univers du jeu. Elle utilise des technologies web modernes combinées à une base de données MySQL pour gérer les marqueurs, les utilisateurs et leurs données personnalisées.
 
-![alt text](image.png)
+![alt text](src/img/readme-img/image.png)
 
 ## 🔧 Technologies utilisées
 
@@ -65,8 +65,8 @@ Ce projet utilise Docker pour simplifier le déploiement de l’environnement PH
 #### 1. 📁 Cloner le dépôt
 
 ```bash
-git clone https://github.com/votre-utilisateur/nom-du-projet.git
-cd nom-du-projet
+git clone https://github.com/Unicron03/map-LA-upg.git
+cd map-LA-upg
 ```
 
 #### 2. ▶️ Lancer les conteneurs
@@ -87,6 +87,6 @@ docker-compose down
 
 Merci aux personnes ayant participé au développement du projet :
 
-| [![Johnmclf](https://github.com/Johnmclf.png?size=150)](https://github.com/Johnmclf) | [![Unicron03](https://github.com/Unicron03.png?size=150)](https://github.com/Unicron03) | [![Jores02](https://github.com/Jores02.png?size=150)](https://github.com/Jores02) |
+| [![Unicron03](https://github.com/Unicron03.png?size=150)](https://github.com/Unicron03) | [![Johnmclf](https://github.com/Johnmclf.png?size=150)](https://github.com/Johnmclf) | [![Jores02](https://github.com/Jores02.png?size=150)](https://github.com/Jores02) |
 |:--:|:--:|:--:|
 | [@Johnmclf](https://github.com/Johnmclf) <br> *Johnmclf* | [@Unicron03](https://github.com/Unicron03) <br> *Enzo Vandepoele* | [@Jores02](https://github.com/Jores02) <br> *AHOUANDOGBO Amen* |
