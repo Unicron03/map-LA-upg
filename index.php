@@ -1,4 +1,22 @@
 <?php
+    //Forcer HTTPS (pas testé car on est en http)
+    /*if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') {
+        header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        exit;
+    }*/
+    
+    // Sécurité session
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.cookie_secure', 0); // mettre à 1 si HTTPS
+    ini_set('session.use_strict_mode', 1);
+
+    //Headers de sécurité
+    header("X-Content-Type-Options: nosniff");
+    header("X-Frame-Options: SAMEORIGIN");
+    header("X-XSS-Protection: 1; mode=block");
+    header("Referrer-Policy: no-referrer");
+    #header("Content-Security-Policy: default-src 'self'; script-src 'self'; object-src 'none';"); // Ne peut pas être utiliser car la map ne respect pas le self
+
     session_start();
 
     $_SESSION["pdoUserName"] = "root";
@@ -97,6 +115,7 @@
                     <?php if (!isLoggedIn()): ?>
                         <h2>Hey, listen! Welcome back!</h2>
                         <form id="formconnex" method="POST">
+                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                             <input id="emailco" type="email" name="email" placeholder="Email" required>
                             <input id="passco" type="password" name="password" placeholder="Password" required>
                             <button type="submit" id="btnconnect" name="login">Login</button>
