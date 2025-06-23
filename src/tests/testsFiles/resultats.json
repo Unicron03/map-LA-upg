@@ -1,0 +1,531 @@
+{
+  "aggregate": {
+    "counters": {
+      "vusers.created_by_name.Visite de la carte": 100,
+      "vusers.created": 100,
+      "http.requests": 100,
+      "http.codes.200": 100,
+      "http.responses": 100,
+      "http.downloaded_bytes": 456516200,
+      "plugins.metrics-by-endpoint./map-la-upg/.codes.200": 100,
+      "vusers.failed": 0,
+      "vusers.completed": 100
+    },
+    "rates": {
+      "http.request_rate": 3
+    },
+    "firstCounterAt": 1750320920808,
+    "firstHistogramAt": 1750320920838,
+    "lastCounterAt": 1750320940114,
+    "lastHistogramAt": 1750320940114,
+    "firstMetricAt": 1750320920808,
+    "lastMetricAt": 1750320940114,
+    "period": 1750320940000,
+    "summaries": {
+      "http.response_time": {
+        "min": 6,
+        "max": 36,
+        "count": 100,
+        "mean": 20.4,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 29.1,
+        "p90": 30.9,
+        "p95": 32.1,
+        "p99": 32.8,
+        "p999": 32.8
+      },
+      "http.response_time.2xx": {
+        "min": 6,
+        "max": 36,
+        "count": 100,
+        "mean": 20.4,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 29.1,
+        "p90": 30.9,
+        "p95": 32.1,
+        "p99": 32.8,
+        "p999": 32.8
+      },
+      "plugins.metrics-by-endpoint.response_time./map-la-upg/": {
+        "min": 6,
+        "max": 36,
+        "count": 100,
+        "mean": 20.4,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 29.1,
+        "p90": 30.9,
+        "p95": 32.1,
+        "p99": 32.8,
+        "p999": 32.8
+      },
+      "vusers.session_length": {
+        "min": 36.7,
+        "max": 84.7,
+        "count": 100,
+        "mean": 56.6,
+        "p50": 57.4,
+        "median": 57.4,
+        "p75": 64.7,
+        "p90": 70.1,
+        "p95": 79.1,
+        "p99": 83.9,
+        "p999": 83.9
+      }
+    },
+    "histograms": {
+      "http.response_time": {
+        "min": 6,
+        "max": 36,
+        "count": 100,
+        "mean": 20.4,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 29.1,
+        "p90": 30.9,
+        "p95": 32.1,
+        "p99": 32.8,
+        "p999": 32.8
+      },
+      "http.response_time.2xx": {
+        "min": 6,
+        "max": 36,
+        "count": 100,
+        "mean": 20.4,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 29.1,
+        "p90": 30.9,
+        "p95": 32.1,
+        "p99": 32.8,
+        "p999": 32.8
+      },
+      "plugins.metrics-by-endpoint.response_time./map-la-upg/": {
+        "min": 6,
+        "max": 36,
+        "count": 100,
+        "mean": 20.4,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 29.1,
+        "p90": 30.9,
+        "p95": 32.1,
+        "p99": 32.8,
+        "p999": 32.8
+      },
+      "vusers.session_length": {
+        "min": 36.7,
+        "max": 84.7,
+        "count": 100,
+        "mean": 56.6,
+        "p50": 57.4,
+        "median": 57.4,
+        "p75": 64.7,
+        "p90": 70.1,
+        "p95": 79.1,
+        "p99": 83.9,
+        "p999": 83.9
+      }
+    }
+  },
+  "intermediate": [
+    {
+      "counters": {
+        "vusers.created_by_name.Visite de la carte": 49,
+        "vusers.created": 49,
+        "http.requests": 49,
+        "http.codes.200": 48,
+        "http.responses": 48,
+        "http.downloaded_bytes": 219127776,
+        "plugins.metrics-by-endpoint./map-la-upg/.codes.200": 48,
+        "vusers.failed": 0,
+        "vusers.completed": 48
+      },
+      "rates": {
+        "http.request_rate": 5
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1750320920808,
+      "firstHistogramAt": 1750320920838,
+      "lastCounterAt": 1750320929997,
+      "lastHistogramAt": 1750320929975,
+      "firstMetricAt": 1750320920808,
+      "lastMetricAt": 1750320929997,
+      "period": "1750320920000",
+      "summaries": {
+        "http.response_time": {
+          "min": 7,
+          "max": 33,
+          "count": 48,
+          "mean": 18.9,
+          "p50": 22,
+          "median": 22,
+          "p75": 26.8,
+          "p90": 30.9,
+          "p95": 30.9,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "http.response_time.2xx": {
+          "min": 7,
+          "max": 33,
+          "count": 48,
+          "mean": 18.9,
+          "p50": 22,
+          "median": 22,
+          "p75": 26.8,
+          "p90": 30.9,
+          "p95": 30.9,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "plugins.metrics-by-endpoint.response_time./map-la-upg/": {
+          "min": 7,
+          "max": 33,
+          "count": 48,
+          "mean": 18.9,
+          "p50": 22,
+          "median": 22,
+          "p75": 26.8,
+          "p90": 30.9,
+          "p95": 30.9,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "vusers.session_length": {
+          "min": 38.2,
+          "max": 84.7,
+          "count": 48,
+          "mean": 56.3,
+          "p50": 56.3,
+          "median": 56.3,
+          "p75": 64.7,
+          "p90": 71.5,
+          "p95": 76,
+          "p99": 83.9,
+          "p999": 83.9
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 7,
+          "max": 33,
+          "count": 48,
+          "mean": 18.9,
+          "p50": 22,
+          "median": 22,
+          "p75": 26.8,
+          "p90": 30.9,
+          "p95": 30.9,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "http.response_time.2xx": {
+          "min": 7,
+          "max": 33,
+          "count": 48,
+          "mean": 18.9,
+          "p50": 22,
+          "median": 22,
+          "p75": 26.8,
+          "p90": 30.9,
+          "p95": 30.9,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "plugins.metrics-by-endpoint.response_time./map-la-upg/": {
+          "min": 7,
+          "max": 33,
+          "count": 48,
+          "mean": 18.9,
+          "p50": 22,
+          "median": 22,
+          "p75": 26.8,
+          "p90": 30.9,
+          "p95": 30.9,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "vusers.session_length": {
+          "min": 38.2,
+          "max": 84.7,
+          "count": 48,
+          "mean": 56.3,
+          "p50": 56.3,
+          "median": 56.3,
+          "p75": 64.7,
+          "p90": 71.5,
+          "p95": 76,
+          "p99": 83.9,
+          "p999": 83.9
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Visite de la carte": 50,
+        "vusers.created": 50,
+        "http.requests": 50,
+        "http.codes.200": 50,
+        "http.responses": 50,
+        "http.downloaded_bytes": 228258100,
+        "plugins.metrics-by-endpoint./map-la-upg/.codes.200": 50,
+        "vusers.failed": 0,
+        "vusers.completed": 50
+      },
+      "rates": {
+        "http.request_rate": 5
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1750320930018,
+      "firstHistogramAt": 1750320930018,
+      "lastCounterAt": 1750320939997,
+      "lastHistogramAt": 1750320939997,
+      "firstMetricAt": 1750320930018,
+      "lastMetricAt": 1750320939997,
+      "period": "1750320930000",
+      "summaries": {
+        "http.response_time": {
+          "min": 6,
+          "max": 36,
+          "count": 50,
+          "mean": 21.7,
+          "p50": 24.8,
+          "median": 24.8,
+          "p75": 29.1,
+          "p90": 32.1,
+          "p95": 32.1,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "http.response_time.2xx": {
+          "min": 6,
+          "max": 36,
+          "count": 50,
+          "mean": 21.7,
+          "p50": 24.8,
+          "median": 24.8,
+          "p75": 29.1,
+          "p90": 32.1,
+          "p95": 32.1,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "plugins.metrics-by-endpoint.response_time./map-la-upg/": {
+          "min": 6,
+          "max": 36,
+          "count": 50,
+          "mean": 21.7,
+          "p50": 24.8,
+          "median": 24.8,
+          "p75": 29.1,
+          "p90": 32.1,
+          "p95": 32.1,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "vusers.session_length": {
+          "min": 36.7,
+          "max": 83.7,
+          "count": 50,
+          "mean": 56.9,
+          "p50": 58.6,
+          "median": 58.6,
+          "p75": 64.7,
+          "p90": 68.7,
+          "p95": 71.5,
+          "p99": 80.6,
+          "p999": 80.6
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 6,
+          "max": 36,
+          "count": 50,
+          "mean": 21.7,
+          "p50": 24.8,
+          "median": 24.8,
+          "p75": 29.1,
+          "p90": 32.1,
+          "p95": 32.1,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "http.response_time.2xx": {
+          "min": 6,
+          "max": 36,
+          "count": 50,
+          "mean": 21.7,
+          "p50": 24.8,
+          "median": 24.8,
+          "p75": 29.1,
+          "p90": 32.1,
+          "p95": 32.1,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "plugins.metrics-by-endpoint.response_time./map-la-upg/": {
+          "min": 6,
+          "max": 36,
+          "count": 50,
+          "mean": 21.7,
+          "p50": 24.8,
+          "median": 24.8,
+          "p75": 29.1,
+          "p90": 32.1,
+          "p95": 32.1,
+          "p99": 32.8,
+          "p999": 32.8
+        },
+        "vusers.session_length": {
+          "min": 36.7,
+          "max": 83.7,
+          "count": 50,
+          "mean": 56.9,
+          "p50": 58.6,
+          "median": 58.6,
+          "p75": 64.7,
+          "p90": 68.7,
+          "p95": 71.5,
+          "p99": 80.6,
+          "p999": 80.6
+        }
+      }
+    },
+    {
+      "counters": {
+        "http.codes.200": 2,
+        "http.responses": 2,
+        "http.downloaded_bytes": 9130324,
+        "plugins.metrics-by-endpoint./map-la-upg/.codes.200": 2,
+        "vusers.failed": 0,
+        "vusers.completed": 2,
+        "vusers.created_by_name.Visite de la carte": 1,
+        "vusers.created": 1,
+        "http.requests": 1
+      },
+      "rates": {
+        "http.request_rate": 1
+      },
+      "firstCounterAt": 1750320940023,
+      "firstHistogramAt": 1750320940023,
+      "lastCounterAt": 1750320940114,
+      "lastHistogramAt": 1750320940114,
+      "firstMetricAt": 1750320940023,
+      "lastMetricAt": 1750320940114,
+      "period": "1750320940000",
+      "http.request_rate": null,
+      "summaries": {
+        "http.response_time": {
+          "min": 24,
+          "max": 25,
+          "count": 2,
+          "mean": 24.5,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 23.8,
+          "p90": 23.8,
+          "p95": 23.8,
+          "p99": 23.8,
+          "p999": 23.8
+        },
+        "http.response_time.2xx": {
+          "min": 24,
+          "max": 25,
+          "count": 2,
+          "mean": 24.5,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 23.8,
+          "p90": 23.8,
+          "p95": 23.8,
+          "p99": 23.8,
+          "p999": 23.8
+        },
+        "plugins.metrics-by-endpoint.response_time./map-la-upg/": {
+          "min": 24,
+          "max": 25,
+          "count": 2,
+          "mean": 24.5,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 23.8,
+          "p90": 23.8,
+          "p95": 23.8,
+          "p99": 23.8,
+          "p999": 23.8
+        },
+        "vusers.session_length": {
+          "min": 55.9,
+          "max": 57.8,
+          "count": 2,
+          "mean": 56.8,
+          "p50": 56.3,
+          "median": 56.3,
+          "p75": 56.3,
+          "p90": 56.3,
+          "p95": 56.3,
+          "p99": 56.3,
+          "p999": 56.3
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 24,
+          "max": 25,
+          "count": 2,
+          "mean": 24.5,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 23.8,
+          "p90": 23.8,
+          "p95": 23.8,
+          "p99": 23.8,
+          "p999": 23.8
+        },
+        "http.response_time.2xx": {
+          "min": 24,
+          "max": 25,
+          "count": 2,
+          "mean": 24.5,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 23.8,
+          "p90": 23.8,
+          "p95": 23.8,
+          "p99": 23.8,
+          "p999": 23.8
+        },
+        "plugins.metrics-by-endpoint.response_time./map-la-upg/": {
+          "min": 24,
+          "max": 25,
+          "count": 2,
+          "mean": 24.5,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 23.8,
+          "p90": 23.8,
+          "p95": 23.8,
+          "p99": 23.8,
+          "p999": 23.8
+        },
+        "vusers.session_length": {
+          "min": 55.9,
+          "max": 57.8,
+          "count": 2,
+          "mean": 56.8,
+          "p50": 56.3,
+          "median": 56.3,
+          "p75": 56.3,
+          "p90": 56.3,
+          "p95": 56.3,
+          "p99": 56.3,
+          "p999": 56.3
+        }
+      }
+    }
+  ]
+}

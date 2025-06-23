@@ -1,0 +1,15 @@
+config:
+  target: "http://localhost"
+  phases:
+    - duration: 20         # durée totale du test en secondes
+      arrivalRate: 5       # 5 utilisateurs par seconde
+      name: "Test de charge simple"
+
+scenarios:
+  - name: "Visite de la carte"
+    flow:
+      - get:
+          url: "/map-la-upg/"
+
+# artillery run stress-load.yml -o resultats.json
+# node analyse.js

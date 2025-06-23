@@ -1,0 +1,23 @@
+.form-marker {
+    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: medium;
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.form-marker input, textarea {
+    width: 100%;
+    border-width: 1.5px;
+    border-radius: 5px;
+    padding: 5px;
+}
+.form-marker button {
+    border-radius: 6px;
+    padding: 5px;
+    color: black;
+    cursor: pointer;
+    margin: auto;
+}
+.form-marker button:hover, .form-filter button:hover { opacity: 0.6; }
