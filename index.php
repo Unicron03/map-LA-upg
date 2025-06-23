@@ -136,6 +136,7 @@
                 <div id="register-form" class="form-container">
                     <h2>It's dangerous to go alone! We're glad you're here with us.</h2>
                     <form id="forminsc" method="POST">
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                         <input id="usere" type="text" name="username" placeholder="Username" required>
                         <input id="passre" type="password" name="password" placeholder="Password" required>
                         <input id="fullre" type="text" name="fullname" placeholder="Full name" required>
