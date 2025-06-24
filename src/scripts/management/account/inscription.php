@@ -92,8 +92,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         $userId = $pdo->lastInsertId();
 
         // Lier les markers libres
-        $markerId = $pdo->query("SELECT id FROM marker WHERE userID IS NULL");
-        $markerResults = $markerId->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $pdo->prepare("SELECT id FROM marker WHERE userID IS NULL");
+        $stmt->execute();
+        $markerResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 
         $insertUserdata = $pdo->prepare("INSERT INTO userdata (idMarker, userId, favorite, complete) VALUES (?, ?, 0, 0)");
         foreach ($markerResults as $marker) {
