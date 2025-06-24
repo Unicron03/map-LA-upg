@@ -7,7 +7,8 @@ function loadCatMarkers() {
     try {
         $pdo = Database::get();
 
-        $stmt = $pdo->query("SELECT m.id, m.subId, m.nom, m.image FROM typemarker m");
+        $stmt = $pdo->prepare("SELECT m.id, m.subId, m.nom, m.image FROM typemarker m");
+        $stmt->execute();
         $catMarkers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         echo "<script>";
