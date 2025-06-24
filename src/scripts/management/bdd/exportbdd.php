@@ -1,4 +1,10 @@
 <?php
+
+if (!defined('ALLOW_EXPORT')) {
+    http_response_code(403); // Interdit
+    die("Accès direct interdit.");
+}
+
 try {
     $con = new PDO("mysql:host=db;dbname=map-la", "admin", "root", [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
