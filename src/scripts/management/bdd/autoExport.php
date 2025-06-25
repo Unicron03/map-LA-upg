@@ -8,12 +8,14 @@ if (file_exists($lastExportFile)) {
     $lastExportTime = strtotime($lastExport);
 
     if (time() - $lastExportTime >= $interval) {
+        define('ALLOW_EXPORT', true);
         include($exportScript);
         file_put_contents($lastExportFile, date(format: 'Y-m-d H:i:s')); // Enregistre la date actuelle
     } else {
         echo "Dernier export effectué le : " . $lastExport . ". Prochain export dans " . round(($interval - (time() - $lastExportTime)) / 3600, 1) . " heures.";
     }
 } else {
+    define('ALLOW_EXPORT', true);
     include($exportScript);
     file_put_contents($lastExportFile, date('Y-m-d H:i:s'));
 }
