@@ -149,6 +149,7 @@
                 <div id="changePass-form" class="form-container">
                     <h2>An email will be share at your adress</h2>
                     <form id="formconnex" method="POST">
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                         <input id="emailchange" type="email" name="email" placeholder="Email" required>
                         <button id="btnconnect" type="submit" name="change">Share</button>
                     </form>
