@@ -78,8 +78,8 @@ docker-compose up -d
 ```
 
 #### 3. 🌐 Accéder à l'application
-- Frontend : http://localhost:8080
-- PhpMyAdmin (si présent) : http://localhost:3306
+- Frontend : http://zeldala.duckdns.org/ OU localhost:8080
+- Backend (MySQL NON WEB) : port 3306
 
 #### 4. ⏹️ Arrêter les conteneurs
 ```bash

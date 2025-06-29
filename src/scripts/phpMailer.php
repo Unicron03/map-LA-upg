@@ -28,7 +28,7 @@ if (isset($_POST['change'])) {
         $_SESSION['password_reset_token'] = $token;
 
         // Lien de réinitialisation pour l'environnement local
-        $resetLink = "http://localhost:8080/scripts/management/account/changepassword.php?token=$token";
+        $resetLink = "http://zeldala.duckdns.org/scripts/management/account/changepassword.php?token=$token";
 
         // Créer une instance de PHPMailer
         $mail = new PHPMailer(true);

@@ -1,5 +1,5 @@
 config:
-  target: "http://localhost"
+  target: "http://zeldala.duckdns.org/"
   phases:
     - duration: 20         # durée totale du test en secondes
       arrivalRate: 5       # 5 utilisateurs par seconde
@@ -9,7 +9,7 @@ scenarios:
   - name: "Visite de la carte"
     flow:
       - get:
-          url: "/map-la-upg/"
+          url: "/map-la-upg-main/"
 
 # artillery run stress-load.yml -o resultats.json
 # node analyse.js

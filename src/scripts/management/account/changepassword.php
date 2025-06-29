@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
             unset($_SESSION['password_reset_token']);
             unset($_SESSION['csrf_token']);
 
-            header("Location: http://localhost:8080");
+            header("Location: http://zeldala.duckdns.org/");
             exit;
         } catch (PDOException $e) {
             echo 'Erreur : ' . htmlspecialchars($e->getMessage());
