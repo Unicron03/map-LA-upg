@@ -90,6 +90,6 @@ docker-compose down
 
 Merci aux personnes ayant participé au développement du projet :
 
-| [![Unicron03](https://github.com/Unicron03.png?size=150)](https://github.com/Unicron03) | [![Johnmclf](https://github.com/Johnmclf.png?size=150)](https://github.com/Johnmclf) | [![Jores02](https://github.com/Jores02.png?size=150)](https://github.com/Jores02) |
+| [![Johnmclf](https://github.com/Johnmclf.png?size=150)](https://github.com/Johnmclf) | [![Unicron03](https://github.com/Unicron03.png?size=150)](https://github.com/Unicron03) | [![Jores02](https://github.com/Jores02.png?size=150)](https://github.com/Jores02) |
 |:--:|:--:|:--:|
 | [@Johnmclf](https://github.com/Johnmclf) <br> *Johnmclf* | [@Unicron03](https://github.com/Unicron03) <br> *Enzo Vandepoele* | [@Jores02](https://github.com/Jores02) <br> *AHOUANDOGBO Amen* |
